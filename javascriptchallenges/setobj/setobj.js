@@ -1,4 +1,37 @@
-//Implement a Set data structure, including an “add” and “intersect” method.
+// extend JavaScript Array object first to allow faster searching within an array
+// assuming a numeric array, this would need to be changed if contains strings instead
+Array.prototype.in_array = function (needle) {  
+    function sortNumber(a, b) {
+		return a - b;
+    }
+	this.sort(sortNumber);  // enable a numeric sorting
+	
+	var low = -1;  // need to be able to catch that zeroth element
+	var high = (this.length);
+
+	while (high > low) {
+	   var middle = (low + ((high - low) / 2));   
+	   var middle = Math.floor(middle);
+	   var currentVal = this[middle]; 
+	  
+    if (needle < this[low] || needle > this[high] || low + 1 == high){
+	   return false;  // out of bounds or not in array 
+     }
+    else if (currentVal > needle) {  
+	   high = middle;  // needle lies below the current middle record, shift high
+    }
+    else if (currentVal < needle) {
+	   low = middle;  // needle lies above the current middle record, shift low
+    }
+    else if (currentVal == needle) {
+	return true;  // needle found
+    }
+	else{break;}  // prevents extra looping
+  }
+}
+
+
+//Implement a Set data structure, including an ï¿½addï¿½ and ï¿½intersectï¿½ method.
 
 // sample array sets
 var arr1 = new Array(5,3,6,8,1,4,7,10,13,14);
